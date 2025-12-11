@@ -17,7 +17,7 @@ st.set_page_config(
 # ---------------------------------------------------------
 @st.cache_data
 def load_data():
-    csv_path = "../output/leaderboard.csv"   # ✔ Correct path for Streamlit Cloud
+    csv_path = "output/leaderboard.csv"   # ✔ Correct path for Streamlit Cloud
     if not os.path.exists(csv_path):
         st.error(f"CSV file not found: {csv_path}")
         return pd.DataFrame()
@@ -92,3 +92,4 @@ st.dataframe(
     hide_index=True,  # ✔ No index in table
     width="stretch"
 )
+
