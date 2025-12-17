@@ -69,17 +69,25 @@ def get_student_lecture_rows(df_lectures: pd.DataFrame, username: str) -> pd.Dat
     return out
 
 
-def build_solid_bar(score: int, total_blocks: int = 34) -> str:
-    """
-    Solid bar (no spaces). Filled is blue, remaining is light blue.
-    """
+def build_responsive_bar(score: int):
     score = max(0, min(100, int(score)))
-    filled = int(round(score / 100 * total_blocks))
-    empty = total_blocks - filled
-    return (
-        f"<span style='color:#3498db;'>{'█' * filled}</span>"
-        f"<span style='color:#cfe8f9;'>{'█' * empty}</span>"
-    )
+
+    return f"""
+    <div style="
+        width:100%;
+        max-width:100%;
+        background:#cfe8f9;
+        height:18px;
+        border-radius:6px;
+        overflow:hidden;
+    ">
+        <div style="
+            width:{score}%;
+            background:#3498db;
+            height:100%;
+        "></div>
+    </div>
+    """
 
 
 # =========================================================
@@ -241,23 +249,23 @@ if student_name.strip():
             for _, r in student_lectures.iterrows():
                 lecture = safe_int(r["lecture"])
                 score = safe_int(r["score"])
-                bar_html = build_solid_bar(score, total_blocks=BAR_BLOCKS)
+                bar_html = build_responsive_bar(score)
 
                 st.markdown(
                     f"""
-                    <div style="display:flex; align-items:center; gap:10px; margin:6px 0;">
-                        <code style="min-width:90px;">Lecture {lecture}</code>
-                        <div style="min-width:34px; font-weight:700;">{score}</div>
-                        <div style="font-family:monospace; font-size:18px; line-height:1;">
-                            {bar_html}
-                        </div>
-                    </div>
-                    """,
+    <div style="margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between;">
+            <div><b>Lecture {lecture}</b></div>
+            <div><b>{score}</b></div>
+        </div>
+        {bar_html}
+    </div>
+    """,
                     unsafe_allow_html=True,
                 )
 
         # =====================================================
-        # Student report generation (PNG + PDF) 
+        # Student report generation (PNG + PDF) with the SAME bar style
         # =====================================================
         def generate_student_report_png(
             username_: str,
@@ -457,3 +465,4 @@ st.plotly_chart(fig, width="stretch")
 # =========================================================
 st.subheader("📊 Full Leaderboard")
 st.dataframe(df, hide_index=True, width="stretch")
+
