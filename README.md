@@ -42,7 +42,7 @@ The project follows **ETL principles**, supports **local execution and cloud dep
 ---
 
 ## 📂 Project Structure
-PyLab-Homework-Leaderboard/
+``PyLab-Homework-Leaderboard/
 │
 ├── app/
 │ └── app_csv.py # Streamlit application
@@ -63,7 +63,8 @@ PyLab-Homework-Leaderboard/
 │ └── trophy.png # Trophy icon
 │
 ├── requirements.txt
-└── README.md
+└── README.md`
+```
 
 
 ---
