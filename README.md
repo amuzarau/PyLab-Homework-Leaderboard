@@ -95,7 +95,7 @@ streamlit run app/app_csv.py
 
 ```mermaid
 flowchart TD
-    A[Excel files (.xlsx)] --> B[extract.py]
+    A[Excel files] --> B[extract.py]
     B --> C[CSV files]
     C --> D[transform.py]
     D --> E[leaderboard.csv]
@@ -151,11 +151,11 @@ sequenceDiagram
 ```mermaid
 flowchart TD
     A[New Excel files] --> B[Airflow DAG]
-    B --> C[extract.py<br/>(xlsx → csv)]
-    C --> D[transform.py<br/>(cleaning, aggregation)]
-    D --> E[output/*.csv]
+    B --> C[extract.py xlsx to csv]
+    C --> D[transform.py cleaning and aggregation]
+    D --> E[output csv files]
     E --> F[GitHub push]
-    F --> G[Streamlit Cloud auto-redeploy]
+    F --> G[Streamlit Cloud auto redeploy]
 ```
 
 **How it works:**
